@@ -30,7 +30,7 @@ pub fn get_topcodes(buffer: &js_sys::Uint32Array) -> js_sys::Array {
     let result = TOPCODE_SCANNER.with_borrow_mut(|scanner| {
         return BUFFER.with_borrow_mut(|b| {
             buffer.copy_to(&mut b[..]);
-            return scanner.scan_rgba(&b[..]);
+            return scanner.scan_rgba_u32(&b[..]);
         });
     });
 

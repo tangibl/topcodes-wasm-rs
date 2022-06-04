@@ -1,11 +1,14 @@
-const worker = new Worker("topcodes.js", {type: "module"});
+const worker = new Worker("./topcodes.js", {type: "module"});
 const topcodes = [];
+
+const WIDTH = 640;
+const HEIGHT = 480;
 
 window.onload = () => {
   const video = document.querySelector("video");
   const canvas = document.getElementById("annotation-canvas");
   const ctx = canvas.getContext("2d");
-  const videoCanvas = new OffscreenCanvas(640, 480);
+  const videoCanvas = new OffscreenCanvas(WIDTH, HEIGHT);
   const videoCtx = videoCanvas.getContext("2d");
 
   const constraints = {
@@ -19,8 +22,8 @@ window.onload = () => {
     video.play();
   }
 
-  function sendImageBufferToWorker() {
-    const imageData = videoCtx.getImageData(0, 0, 640, 480);
+  async function sendImageBufferToWorker() {
+    const imageData = videoCtx.getImageData(0, 0, WIDTH, HEIGHT);
     const arrayBuffer = imageData.data.buffer;
 
     worker.postMessage({
@@ -48,8 +51,8 @@ window.onload = () => {
     }
   };
 
-  function animate(timestamp) {
-    ctx.clearRect(0, 0, 640, 480);
+  function animate() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
@@ -73,12 +76,17 @@ window.onload = () => {
       ctx.fillText(code, x, y);
     }
 
-    videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
-
     requestAnimationFrame(animate);
   }
 
+  function drawVideoToCanvas() {
+    videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
+
+    requestAnimationFrame(drawVideoToCanvas);
+  }
+
   animate();
+  drawVideoToCanvas();
 
   navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess);
 };
