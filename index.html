@@ -2,19 +2,22 @@
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>TopCode Webcam example using WASM</title>
+    <style>
+      .video-container {
+        width: 640px;
+        height: 480px;
+      }
+      .video-container > * {
+        position: absolute;
+      }
+    </style>
   </head>
   <body>
-    <script type="module">
-      import init, { greet } from './pkg/topcodes_wasm.js';
-
-      async function run() {
-        await init();
-
-        greet("World");
-      }
-
-      run();
-    </script>
+    <script type="module" src="main.js"></script>
+    <div class="video-container">
+      <video width="640px" height="480px"></video>
+      <canvas id="annotation-canvas" width="640px" height="480px"></canvas>
+    </div>
   </body>
 </html>
 
