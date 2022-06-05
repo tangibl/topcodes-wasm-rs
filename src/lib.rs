@@ -9,7 +9,6 @@ const HEIGHT: usize = 480;
 
 thread_local! {
     static TOPCODE_SCANNER: RefCell<Scanner> = RefCell::new(Scanner::new(WIDTH, HEIGHT));
-    static BUFFER: RefCell<Vec<u32>> = RefCell::new(vec![0; WIDTH * HEIGHT]);
 }
 
 #[wasm_bindgen(start)]
@@ -27,23 +26,16 @@ pub fn main() -> Result<(), JsValue> {
 
 #[wasm_bindgen(js_name = "getTopcodes")]
 pub fn get_topcodes(buffer: &js_sys::Uint32Array) -> js_sys::Array {
-    let result = TOPCODE_SCANNER.with_borrow_mut(|scanner| {
-        return BUFFER.with_borrow_mut(|b| {
-            buffer.copy_to(&mut b[..]);
-            return scanner.scan_rgba_u32(&b[..]);
+    let topcodes = TOPCODE_SCANNER.with_borrow_mut(|scanner| {
+        return scanner.scan(buffer, |buffer, index| {
+            let index = index as u32;
+            let pixel = buffer.get_index(index);
+            ((pixel >> 16) & 0xff, (pixel >> 8) & 0xff, pixel & 0xff)
         });
     });
 
-    match result {
-        Ok(topcodes) => {
-            return topcodes
-                .into_iter()
-                .map(|code| JsValue::from_str(&code.to_json()))
-                .collect::<js_sys::Array>()
-        }
-        Err(e) => {
-            panic!("{:?}", e);
-            // js_sys::Array::default()
-        }
-    };
+    return topcodes
+        .into_iter()
+        .map(|code| JsValue::from_str(&code.to_json()))
+        .collect::<js_sys::Array>();
 }
