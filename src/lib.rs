@@ -1,7 +1,7 @@
 #![feature(local_key_cell_methods)]
 use std::cell::RefCell;
 
-use topcodes::scanner::Scanner;
+use topcodes::Scanner;
 use wasm_bindgen::prelude::*;
 
 const WIDTH: usize = 640;
