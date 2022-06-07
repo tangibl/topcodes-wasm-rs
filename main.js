@@ -4,16 +4,22 @@ const topcodes = [];
 const WIDTH = 640;
 const HEIGHT = 480;
 
+let lastUpdate = Date.now();
+let deltaTime = 0;
+
 window.onload = () => {
   const video = document.querySelector("video");
   const canvas = document.getElementById("annotation-canvas");
   const ctx = canvas.getContext("2d");
-  const videoCanvas = new OffscreenCanvas(WIDTH, HEIGHT);
+  const videoCanvas = document.getElementById("video-canvas");
   const videoCtx = videoCanvas.getContext("2d");
+  const statistics = document.getElementById("statistics");
 
   const constraints = {
     audio: false,
-    video: true
+    video: true,
+    width: WIDTH,
+    height: HEIGHT,
   };
 
   function handleSuccess(stream) {
@@ -25,6 +31,8 @@ window.onload = () => {
   async function sendImageBufferToWorker() {
     const imageData = videoCtx.getImageData(0, 0, WIDTH, HEIGHT);
     const arrayBuffer = imageData.data.buffer;
+
+    lastUpdate = Date.now();
 
     worker.postMessage({
       type: "SEND_IMAGE_BUFFER",
@@ -41,6 +49,7 @@ window.onload = () => {
 
     switch (type) {
       case "TOPCODE_RESULT":
+        deltaTime = Date.now() - lastUpdate;
         topcodes.splice(0, topcodes.length, ...payload.topcodes);
         sendImageBufferToWorker();
         break;
@@ -55,6 +64,8 @@ window.onload = () => {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+
+    statistics.innerText = `Scan time: ${deltaTime}ms`;
 
     for (const topcode of topcodes) {
       const {x, y, unit, orientation, code} = topcode;
