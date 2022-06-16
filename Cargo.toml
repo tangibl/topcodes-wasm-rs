@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 [dependencies]
 console_error_panic_hook = "0.1.7"
 js-sys = "0.3.57"
-topcodes = { path = "../topcodes-rs", version = "*"}
+topcodes = { git = "https://github.com/battesonb/topcodes-rs", version = "*"}
 wasm-bindgen = "0.2.80"
 
 [dependencies.web-sys]

@@ -80,6 +80,7 @@ dependencies = [
 [[package]]
 name = "topcodes"
 version = "0.1.0"
+source = "git+https://github.com/battesonb/topcodes-rs#991b6f235901677ce4bd6751db05900ea81be340"
 
 [[package]]
 name = "topcodes-wasm"
