@@ -19,7 +19,7 @@ jobs:
       - name: Build
         run: |
           rustup default nightly
-          wasm-pack build --release
+          wasm-pack build --target web --release
           rm pkg/.gitignore
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
@@ -27,5 +27,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: .
-          SINGLE-COMMIT: true
+          SINGLE_COMMIT: true
 
