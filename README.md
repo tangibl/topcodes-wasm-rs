@@ -8,6 +8,12 @@ JavaScript-compatible interface for the TopCode scanner.
 The advantage of this package is that any performance improvements to the Rust
 package will be absorbed by this package for free.
 
+## Demo
+
+[![Deployment](https://github.com/battesonb/topcodes-wasm-rs/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/battesonb/topcodes-wasm-rs/actions/workflows/deploy.yml)
+
+A demo of this package is available on [GitHub pages](https://battesonb.github.io/topcodes-wasm-rs/)
+
 ## Screenshot
 
 ![Screenshot](docs/screenshot.png)
@@ -30,7 +36,3 @@ wasm-pack test --headless --firefox
 
 If you would like to test the integration of your changes, you can use the NPM
 example project under [www/](www/).
-
-## Demo
-
-A demo of this package is available on [GitHub pages](https://battesonb.github.io/topcodes-wasm-rs/)
