@@ -1,5 +1,8 @@
-import {scan} from "topcodes-wasm";
+import {scan, TopCode} from "topcodes-wasm";
 
+/**
+ * @type {TopCode[]}
+ */
 const topcodes = [];
 
 const WIDTH = 640;
@@ -35,7 +38,7 @@ async function scanImageBuffer() {
   lastUpdate = Date.now();
 
   const result = await new Promise(resolve => {
-    resolve(scan(buffer, WIDTH, HEIGHT).map(json => JSON.parse(json)));
+    resolve(scan(buffer, WIDTH, HEIGHT));
   });
   deltaTime = Date.now() - lastUpdate;
   topcodes.splice(0, topcodes.length, ...result);
