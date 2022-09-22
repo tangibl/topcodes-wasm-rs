@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy page
 on:
   push:
     branches: [main]
@@ -19,13 +19,15 @@ jobs:
       - name: Build
         run: |
           rustup default nightly
-          wasm-pack build --target web --release
+          wasm-pack build --release
           rm pkg/.gitignore
+          cd www
+          npm install
+          npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: .
+          FOLDER: www/dist/
           SINGLE_COMMIT: true
-

@@ -1,0 +1,13 @@
+# TopCodes WASM Example
+
+This sub-project allows for faster iteration during development. It does not
+currently serve as a proper integration test.
+
+To get started, run:
+
+```sh
+npm install
+npm run start
+```
+
+The Webpack server will run on http://localhost:8080.

@@ -1,37 +1,58 @@
-#![feature(local_key_cell_methods)]
-use std::cell::RefCell;
+mod utils;
 
-use topcodes::Scanner;
+use serde::{Deserialize, Serialize};
+use topcodes::{Scanner, TopCode};
 use wasm_bindgen::prelude::*;
 
-const WIDTH: usize = 640;
-const HEIGHT: usize = 480;
+#[wasm_bindgen]
+extern "C" {}
 
-thread_local! {
-    static TOPCODE_SCANNER: RefCell<Scanner> = RefCell::new(Scanner::new(WIDTH, HEIGHT));
+/// There's no great support for TypeScript types at the moment, so this definition must be kept in
+/// sync with the Rust function(s) below.
+#[wasm_bindgen(typescript_custom_section)]
+const TS_APPEND_CONTENT: &'static str = r#"
+export interface TopCode {
+    /**
+     * The symbol's code, -1 for invalid codes. Must be an integer.
+     */
+    code: number;
+    /**
+     * Width of a single ring.
+     */
+    unit: number;
+    /**
+     * Angular orientation of the symbol (in radians).
+     */
+    orientation: number;
+    /**
+     * The horizontal coordinate of the symbol center, starting from the left.
+     */
+    x: number;
+    /**
+     * The vertical coordinate of the symbol center, starting from the top.
+     */
+    y: number;
 }
 
-#[wasm_bindgen(start)]
-pub fn main() -> Result<(), JsValue> {
-    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+/**
+ * @param {Uint8ClampedArray} buffer The source image buffer.
+ * @param {number} width An integer value representing the width of the image.
+ * @param {number} height An integer value representing the height of the image.
+ * @returns {TopCode[]} A list of the detected TopCodes, with no duplicates.
+ */
+export function scan(buffer: Uint8ClampedArray, width: number, height: number): TopCode[];
+"#;
 
-    // let window = web_sys::window().expect("No global `window` exists");
-    // let document = window.document().expect("Should have a document on window");
-    // let body = document.body().expect("Document should have a body");
+#[wasm_bindgen(skip_typescript)]
+pub fn scan(buffer: &js_sys::Uint8ClampedArray, width: usize, height: usize) -> js_sys::Array {
+    let mut scanner = Scanner::new(width, height);
 
-    // TODO: Move all/most of the DOM work into wasm to reduce JS required for demo.
-
-    Ok(())
-}
-
-#[wasm_bindgen(js_name = "getTopcodes")]
-pub fn get_topcodes(buffer: &js_sys::Uint32Array) -> js_sys::Array {
-    let topcodes = TOPCODE_SCANNER.with_borrow_mut(|scanner| {
-        return scanner.scan(buffer, |buffer, index| {
-            let index = index as u32;
-            let pixel = buffer.get_index(index);
-            ((pixel >> 16) & 0xff, (pixel >> 8) & 0xff, pixel & 0xff)
-        });
+    let topcodes = scanner.scan(buffer, |buffer, index| {
+        let index = index as u32 * 4;
+        let r = buffer.get_index(index);
+        let g = buffer.get_index(index + 1);
+        let b = buffer.get_index(index + 2);
+        (r as u32, g as u32, b as u32)
     });
 
     return topcodes
