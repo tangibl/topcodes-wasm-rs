@@ -2,6 +2,7 @@
   "name": "topcodes-wasm-example",
   "version": "0.0.1",
   "description": "TopCodes scanner example integration in JavaScript",
+  "license": "GPL-2.0",
   "main": "index.js",
   "bin": {},
   "scripts": {
@@ -10,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battesonb/topcodes-js.git"
+    "url": "git+https://github.com/tangibl/topcodes-wasm-rs.git"
   },
   "keywords": [
     "webassembly",
@@ -19,9 +20,9 @@
   ],
   "author": "Byron Batteson <byronbatteson@gmail.com>",
   "bugs": {
-    "url": "https://github.com/battesonb/topcodes-js/issues"
+    "url": "https://github.com/tangibl/topcodes-wasm-rs/issues"
   },
-  "homepage": "https://github.com/battesonb/topcodes-js#readme",
+  "homepage": "https://github.com/tangibl/topcodes-wasm-rs#readme",
   "dependencies": {
     "topcodes-wasm": "file:../pkg"
   },

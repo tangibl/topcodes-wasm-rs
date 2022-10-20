@@ -1,7 +1,7 @@
 # TopCodes in WASM
 
 This package relies on the [Rust
-implementation](https://github.com/battesonb/topcodes-rs) of the TopCode library
+implementation](https://github.com/tangibl/topcodes-rs) of the TopCode library
 originally implemented by Michael Horn. This can be seen as a simple web and
 JavaScript-compatible interface for the TopCode scanner.
 
@@ -10,9 +10,9 @@ package will be absorbed by this package for free.
 
 ## Demo
 
-[![Deployment](https://github.com/battesonb/topcodes-wasm-rs/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/battesonb/topcodes-wasm-rs/actions/workflows/deploy.yml)
+[![Deployment](https://github.com/tangibl/topcodes-wasm-rs/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/tangibl/topcodes-wasm-rs/actions/workflows/deploy.yml)
 
-A demo of this package is available on [GitHub pages](https://battesonb.github.io/topcodes-wasm-rs/)
+A demo of this package is available on [GitHub pages](https://tangibl.github.io/topcodes-wasm-rs/)
 
 ## Screenshot
 
