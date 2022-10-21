@@ -17,7 +17,7 @@ default = ["console_error_panic_hook"]
 js-sys = "0.3.60"
 serde = { version = "1.0.144", features = ["derive"] }
 serde-wasm-bindgen = "0.4.3"
-topcodes = { version = "*", git = "https://github.com/battesonb/topcodes-rs.git" } # TODO: Use cargo
+topcodes = { version = "0.1.0" }
 wasm-bindgen = "0.2.63"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
