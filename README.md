@@ -1,5 +1,7 @@
 # TopCodes in WASM
 
+[![npm](https://img.shields.io/npm/v/@tangibl/topcodes-wasm)](https://www.npmjs.com/package/@tangibl/topcodes-wasm)
+
 This package relies on the [Rust
 implementation](https://github.com/tangibl/topcodes-rs) of the TopCode library
 originally implemented by Michael Horn. This can be seen as a simple web and
