@@ -23,7 +23,7 @@ jobs:
           rm pkg/.gitignore
           cd www
           npm install
-          npm run build
+          npm run build # TODO integration tests
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:

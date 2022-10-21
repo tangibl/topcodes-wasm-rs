@@ -1,11 +1,11 @@
 [package]
 name = "topcodes-wasm"
 description = "A TopCode WASM package tracking the Rust implementation"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["Byron Batteson <byronbatteson@gmail.com>"]
 license = "GPL-2.0"
 edition = "2018"
-repository = "https://github.com/battesonb/topcodes-wasm-rs"
+repository = "https://github.com/tangibl/topcodes-wasm-rs"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
