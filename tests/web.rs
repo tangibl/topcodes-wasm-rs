@@ -3,11 +3,26 @@
 #![cfg(target_arch = "wasm32")]
 
 extern crate wasm_bindgen_test;
+
+use serde::Deserialize;
 use topcodes_wasm::scan;
-use wasm_bindgen::JsValue;
 use wasm_bindgen_test::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
+
+#[derive(Deserialize)]
+struct TopCode {
+    code: i32,
+    unit: f32,
+    orientation: f32,
+    x: f32,
+    y: f32,
+}
+
+fn approx_equal(a: f32, b: f32) -> bool {
+    const EPSILON: f32 = 0.01;
+    a + EPSILON > b && a - EPSILON < b
+}
 
 #[wasm_bindgen_test]
 fn can_scan() -> Result<(), Box<dyn std::error::Error>> {
@@ -21,9 +36,14 @@ fn can_scan() -> Result<(), Box<dyn std::error::Error>> {
 
     let result = scan(&buffer, width, height).to_vec();
 
-    let expected: Vec<JsValue> = vec![JsValue::from_str(
-        "{\"code\":61,\"unit\":7.6,\"orientation\":-0.07249829200591831,\"x\":31.5,\"y\":30.5}",
-    )];
-    assert_eq!(expected, result);
+    // We expect a single start token
+    assert_eq!(result.len(), 1);
+
+    let topcode: TopCode = serde_wasm_bindgen::from_value(result[0].clone()).unwrap();
+    assert_eq!(topcode.code, 61);
+    assert_eq!(topcode.x, 31.5);
+    assert_eq!(topcode.y, 30.5);
+    assert!(approx_equal(topcode.unit, 7.6));
+    assert!(approx_equal(topcode.orientation, -0.07));
     Ok(())
 }

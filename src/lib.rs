@@ -1,5 +1,6 @@
 mod utils;
 
+use js_sys::JSON;
 use topcodes::Scanner;
 use wasm_bindgen::prelude::*;
 
@@ -56,6 +57,6 @@ pub fn scan(buffer: &js_sys::Uint8ClampedArray, width: usize, height: usize) -> 
 
     return topcodes
         .into_iter()
-        .map(|code| JsValue::from_str(&code.to_json()))
+        .map(|code| JSON::parse(&code.to_json()).unwrap_or(js_sys::Array::new().into()))
         .collect::<js_sys::Array>();
 }
