@@ -1,7 +1,6 @@
 mod utils;
 
-use serde::{Deserialize, Serialize};
-use topcodes::{Scanner, TopCode};
+use topcodes::Scanner;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

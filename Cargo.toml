@@ -15,8 +15,6 @@ default = ["console_error_panic_hook"]
 
 [dependencies]
 js-sys = "0.3.60"
-serde = { version = "1.0.144", features = ["derive"] }
-serde-wasm-bindgen = "0.4.3"
 topcodes = { version = "0.1.0" }
 wasm-bindgen = "0.2.63"
 
