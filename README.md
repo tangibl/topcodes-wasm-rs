@@ -1,5 +1,6 @@
 # TopCodes in WASM
 
+[![build](https://github.com/tangibl/topcodes-wasm-rs/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/tangibl/topcodes-wasm-rs/actions/workflows/build.yml)
 [![npm](https://img.shields.io/npm/v/@tangibl/topcodes-wasm)](https://www.npmjs.com/package/@tangibl/topcodes-wasm)
 
 This package relies on the [Rust
