@@ -1,43 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <title>TopCode Webcam example using WASM</title>
-    <style>
-      html, body {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      body {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-      }
-
-      .video-container {
-        width: 640px;
-        height: 480px;
-      }
-
-      .video-container > * {
-        position: absolute;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
   </head>
   <body>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
-    <script src="./bootstrap.js"></script>
     <div class="video-container">
       <video width="640px" height="480px"></video>
       <canvas id="annotation-canvas" width="640px" height="480px"></canvas>
       <canvas style="display: none;" id="video-canvas" width="640px" height="480px"></canvas>
     </div>
     <div id="statistics">-</div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

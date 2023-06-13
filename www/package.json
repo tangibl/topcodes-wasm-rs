@@ -1,13 +1,14 @@
 {
   "name": "topcodes-wasm-example",
+  "private": true,
   "version": "0.0.1",
   "description": "TopCodes scanner example integration in JavaScript",
   "license": "GPL-2.0",
-  "main": "index.js",
-  "bin": {},
+  "type": "module",
   "scripts": {
-    "build": "webpack --config webpack.config.ts",
-    "start": "webpack-dev-server"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -23,17 +24,11 @@
     "url": "https://github.com/tangibl/topcodes-wasm-rs/issues"
   },
   "homepage": "https://github.com/tangibl/topcodes-wasm-rs#readme",
-  "dependencies": {
-    "topcodes-wasm": "file:../pkg"
-  },
   "devDependencies": {
-    "@types/node": "^18.7.18",
-    "@types/webpack": "^5.28.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.3",
-    "webpack": "^5.76.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.11.1"
+    "@tangibl/topcodes-wasm": "file:../pkg",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vite-plugin-top-level-await": "^1.3.1",
+    "vite-plugin-wasm": "^3.2.2"
   }
 }

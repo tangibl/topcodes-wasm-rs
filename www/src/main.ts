@@ -1,9 +1,7 @@
-import {scan, TopCode} from "topcodes-wasm";
+import './style.css'
+import {scan, TopCode} from "@tangibl/topcodes-wasm";
 
-/**
- * @type {TopCode[]}
- */
-const topcodes = [];
+const topcodes: TopCode[] = [];
 
 const WIDTH = 640;
 const HEIGHT = 480;
@@ -11,12 +9,12 @@ const HEIGHT = 480;
 let lastUpdate = Date.now();
 let deltaTime = 0;
 
-const video = document.querySelector("video");
-const canvas = document.getElementById("annotation-canvas");
-const ctx = canvas.getContext("2d");
-const videoCanvas = document.getElementById("video-canvas");
-const videoCtx = videoCanvas.getContext("2d");
-const statistics = document.getElementById("statistics");
+const video = document.querySelector("video")! as HTMLVideoElement;
+const canvas = document.getElementById("annotation-canvas")! as HTMLCanvasElement;
+const ctx = canvas.getContext("2d")!;
+const videoCanvas = document.getElementById("video-canvas")! as HTMLCanvasElement;
+const videoCtx = videoCanvas.getContext("2d")!;
+const statistics = document.getElementById("statistics")! as HTMLDivElement;
 
 const constraints = {
   audio: false,
@@ -25,8 +23,7 @@ const constraints = {
   height: HEIGHT,
 };
 
-function handleSuccess(stream) {
-  window.stream = stream; // make stream available to browser console
+function handleSuccess(stream: MediaStream) {
   video.srcObject = stream;
   video.play();
 }
@@ -37,7 +34,7 @@ async function scanImageBuffer() {
 
   lastUpdate = Date.now();
 
-  const result = await new Promise(resolve => {
+  const result: TopCode[] = await new Promise(resolve => {
     resolve(scan(buffer, WIDTH, HEIGHT));
   });
   deltaTime = Date.now() - lastUpdate;
@@ -67,12 +64,12 @@ function animate() {
     ctx.lineWidth = radius / 10;
     ctx.strokeStyle = "#0077ff88";
     ctx.moveTo(x, y);
-    ctx.lineTo(x + radius * Math.cos(orientation), y + radius * Math.sin(orientation), radius);
+    ctx.lineTo(x + radius * Math.cos(orientation), y + radius * Math.sin(orientation));
     ctx.stroke();
 
     ctx.font = `${radius / 2}px Calibri`;
     ctx.fillStyle = "#fff";
-    ctx.fillText(code, x, y);
+    ctx.fillText(code.toString(), x, y);
   }
 
   requestAnimationFrame(animate);
