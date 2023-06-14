@@ -7,7 +7,12 @@ const config: UserConfigExport = {
   plugins: [
     wasm(),
     topLevelAwait(),
-  ]
+  ],
+  server: {
+    fs: {
+      allow: ['..'],
+    },
+  },
 };
 
 export default defineConfig(config);
