@@ -34,7 +34,7 @@ async function scanImageBuffer() {
 
   lastUpdate = Date.now();
 
-  const result: TopCode[] = await new Promise(resolve => {
+  const result = await new Promise<TopCode[]>(resolve => {
     resolve(scan(buffer, WIDTH, HEIGHT));
   });
   deltaTime = Date.now() - lastUpdate;
